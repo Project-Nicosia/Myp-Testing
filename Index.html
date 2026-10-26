@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomato Town | Fresh from the Farm</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  background: #fff9e9;
+  color: #263c24;
+  overflow-x: hidden;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: #fff9e9;
+}
+.logo { font-size: 25px; font-weight: 900; color: #ed3737; }
+nav a {
+  text-decoration: none; color: #263c24;
+  margin-left: 22px; font-weight: bold;
+}
+.hero {
+  min-height: 78vh;
+  display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: center;
+  gap: 35px; padding: 50px 8%;
+  background: linear-gradient(135deg,#fff0b8,#ffcf8d);
+}
+.hero-text { flex: 1; min-width: 280px; }
+h1 {
+  font-size: clamp(42px, 7vw, 76px);
+  line-height: 1.05; margin: 10px 0 20px;
+}
+h1 span { color: #ed3737; }
+.hero p { font-size: 18px; line-height: 1.8; }
+.btn {
+  display: inline-block; background: #ed3737;
+  color: white; padding: 15px 28px; border-radius: 40px;
+  text-decoration: none; font-weight: bold;
+  transition: transform .3s, background .3s;
+  box-shadow: 0 8px 0 #bd2828;
+}
+.btn:hover { transform: translateY(-5px); background: #bf2525; }
+.tomato-scene {
+  flex: 1; min-width: 270px; text-align: center;
+}
+.big-tomato {
+  font-size: clamp(150px, 25vw, 270px);
+  display: inline-block;
+  animation: bounce 3s ease-in-out infinite;
+  filter: drop-shadow(0 20px 12px #9b4d3240);
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0) rotate(-7deg); }
+  50% { transform: translateY(-22px) rotate(7deg); }
+}
+.features {
+  padding: 65px 8%; text-align: center;
+}
+.features h2 { font-size: 34px; }
+.cards {
+  display: flex; flex-wrap: wrap; gap: 20px;
+  justify-content: center; margin-top: 30px;
+}
+.card {
+  background: white; padding: 25px; border-radius: 20px;
+  width: 240px; box-shadow: 0 8px 25px #0000000b;
+  transition: transform .3s;
+}
+.card:hover { transform: translateY(-10px) rotate(-1deg); }
+.card .emoji { font-size: 55px; }
+footer {
+  background: #263c24; color: white;
+  text-align: center; padding: 25px;
+}
+.float {
+  display: inline-block;
+  animation: wiggle 4s ease-in-out infinite;
+}
+@keyframes wiggle {
+  0%,100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+@media(max-width:600px) {
+  nav { padding: 18px 5%; }
+  nav a { margin-left: 10px; font-size: 14px; }
+  .hero { padding: 40px 6%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🍅 Tomato Town</div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop 🛒</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <p>🌱 FRESH FROM OUR FARM</p>
+    <h1>Life is better<br>with <span>tomatoes!</span></h1>
+    <p>Juicy, delicious, sun-ripened tomatoes
+       picked with love and delivered fresh.</p>
+    <a class="btn" href="shop.html">Shop Tomatoes →</a>
+  </div>
+  <div class="tomato-scene">
+    <div class="big-tomato">🍅</div>
+    <p class="float">❤️ 100% Farm Fresh ❤️</p>
+  </div>
+</section>
+
+<section class="features">
+  <h2>Why You'll Love Our Tomatoes</h2>
+  <p>Good food starts with good tomatoes!</p>
+  <div class="cards">
+    <div class="card">
+      <div class="emoji">🌿</div>
+      <h3>Fresh & Natural</h3>
+      <p>Picked fresh and full of natural flavor.</p>
+    </div>
+    <div class="card">
+      <div class="emoji">🍅</div>
+      <h3>Lots of Variety</h3>
+      <p>From juicy classics to sweet cherry tomatoes.</p>
+    </div>
+    <div class="card">
+      <div class="emoji">🚚</div>
+      <h3>Farm to Table</h3>
+      <p>Fresh produce, straight from our farm to you.</p>
+    </div>
+  </div>
+  <br><br>
+  <a class="btn" href="shop.html">Explore Our Shop</a>
+</section>
+
+<footer>
+  <p>🍅 Tomato Town — Grown with Love, Served Fresh.</p>
+  <p>© 2026 Tomato Town</p>
+</footer>
+
+</body>
+</html>
