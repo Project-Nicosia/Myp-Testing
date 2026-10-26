@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop | Tomato Town</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: 'Trebuchet MS', Arial, sans-serif;
+  background: #fff9e9; color: #263c24;
+}
+nav {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 20px 8%;
+}
+.logo { font-size: 25px; font-weight: 900; color: #ed3737; }
+nav a { text-decoration: none; color: #263c24; margin-left: 20px; font-weight: bold; }
+header {
+  text-align: center; padding: 45px 15px;
+  background: linear-gradient(135deg,#ffb7a5,#ffdf9b);
+}
+header h1 { font-size: clamp(35px,6vw,55px); margin: 10px; }
+header p { font-size: 17px; }
+.products {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 25px; padding: 45px 6%;
+}
+.product {
+  background: white; width: 270px; padding: 25px;
+  border-radius: 22px; text-align: center;
+  box-shadow: 0 8px 25px #00000010;
+  transition: transform .3s, box-shadow .3s;
+}
+.product:hover {
+  transform: translateY(-9px);
+  box-shadow: 0 15px 30px #ed373720;
+}
+.tomato { font-size: 90px; animation: bob 3s infinite ease-in-out; }
+.product:nth-child(2) .tomato { animation-delay: .4s; }
+.product:nth-child(3) .tomato { animation-delay: .8s; }
+@keyframes bob {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.price { font-size: 24px; font-weight: bold; color: #ed3737; }
+button {
+  border: none; background: #ed3737; color: white;
+  border-radius: 30px; padding: 12px 20px;
+  font-size: 15px; font-weight: bold; cursor: pointer;
+  transition: .25s;
+}
+button:hover { background: #b92525; transform: scale(1.05); }
+.cart {
+  margin: 0 auto 50px; max-width: 700px;
+  background: #e5f2d7; padding: 25px;
+  border-radius: 20px; width: 90%;
+}
+.cart h2 { margin-top: 0; }
+.cart-row {
+  display: flex; justify-content: space-between;
+  gap: 12px; align-items: center; padding: 8px 0;
+}
+.cart-row button { padding: 5px 11px; }
+.total { font-size: 23px; font-weight: bold; margin: 20px 0; }
+.note { color: #52624e; font-size: 13px; }
+footer { background: #263c24; color: white; text-align: center; padding: 25px; }
+@media(max-width:600px) {
+  nav { padding: 18px 5%; }
+  nav a { margin-left: 8px; font-size: 14px; }
+  .product { width: 100%; max-width: 330px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🍅 Tomato Town</div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="#cart">🛒 Cart (<span id="count">0</span>)</a>
+  </div>
+</nav>
+
+<header>
+  <h1>Fresh From the Farm 🍅</h1>
+  <p>Pick your favorites. Taste the sunshine!</p>
+</header>
+
+<section class="products">
+  <div class="product">
+    <div class="tomato">🍅</div>
+    <h2>Classic Tomatoes</h2>
+    <p>Juicy, rich and perfect for everyday cooking.</p>
+    <p class="price">€2.50 / kg</p>
+    <button onclick="add('Classic Tomatoes',2.50)">Add to Cart +</button>
+  </div>
+
+  <div class="product">
+    <div class="tomato">🍒</div>
+    <h2>Cherry Tomatoes</h2>
+    <p>Small, sweet and delicious in every bite.</p>
+    <p class="price">€3.50 / kg</p>
+    <button onclick="add('Cherry Tomatoes',3.50)">Add to Cart +</button>
+  </div>
+
+  <div class="product">
+    <div class="tomato">❤️</div>
+    <h2>Heirloom Tomatoes</h2>
+    <p>Beautiful colors and an old-fashioned flavor.</p>
+    <p class="price">€4.00 / kg</p>
+    <button onclick="add('Heirloom Tomatoes',4.00)">Add to Cart +</button>
+  </div>
+</section>
+
+<section class="cart" id="cart">
+  <h2>🛒 Your Shopping Basket</h2>
+  <div id="items">Your basket is empty. Add some tomatoes!</div>
+  <div class="total">Total: €<span id="total">0.00</span></div>
+  <button onclick="checkout()">Place Order</button>
+  <p class="note">
+    Demo checkout only. Connect an order form or payment provider
+    before accepting real customer orders.
+  </p>
+</section>
+
+<footer>
+  <p>🍅 Tomato Town — Thank you for supporting our farm!</p>
+  <a href="index.html" style="color:#ffe29b">← Back to Home</a>
+</footer>
+
+<script>
+const cart = {};
+
+function add(name, price) {
+  if (!cart[name]) cart[name] = { price, qty: 0 };
+  cart[name].qty++;
+  render();
+}
+
+function changeQty(name, amount) {
+  cart[name].qty += amount;
+  if (cart[name].qty <= 0) delete cart[name];
+  render();
+}
+
+function render() {
+  const entries = Object.entries(cart);
+  document.getElementById('count').textContent =
+    entries.reduce((sum, [, item]) => sum + item.qty, 0);
+
+  document.getElementById('items').innerHTML = entries.length
+    ? entries.map(([name, item]) => `
+      <div class="cart-row">
+        <span>${name}<br>€${item.price.toFixed(2)} / kg</span>
+        <span>
+          <button onclick="changeQty('${name}',-1)">−</button>
+          ${item.qty} kg
+          <button onclick="changeQty('${name}',1)">+</button>
+        </span>
+        <strong>€${(item.price * item.qty).toFixed(2)}</strong>
+      </div>
+    `).join('')
+    : 'Your basket is empty. Add some tomatoes!';
+
+  const total = entries.reduce(
+    (sum, [, item]) => sum + item.price * item.qty, 0
+  );
+  document.getElementById('total').textContent = total.toFixed(2);
+}
+
+function checkout() {
+  const entries = Object.entries(cart);
+  if (!entries.length) {
+    alert('Your basket is empty!');
+    return;
+  }
+
+  const summary = entries.map(([name, item]) =>
+    `${name}: ${item.qty} kg`
+  ).join('\n');
+
+  alert(
+    'Your demo order:\n\n' + summary +
+    '\n\nTotal: €' +
+    entries.reduce((sum, [, item]) =>
+      sum + item.price * item.qty, 0
+    ).toFixed(2) +
+    '\n\nTo complete real orders, contact the farm directly.'
+  );
+}
+</script>
+
+</body>
+</html>
